@@ -22,4 +22,3 @@ jobs:
           path: |
             report_html.html
             zap.out
-``
