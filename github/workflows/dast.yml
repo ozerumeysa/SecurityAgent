@@ -15,10 +15,20 @@ jobs:
         uses: zaproxy/action-baseline@v0.11.0
         with:
           target: ${{ github.event.inputs.target_url }}
-      - name: Upload Artifact
+
+      - name: Upload ZAP report & log
         uses: actions/upload-artifact@v4
         with:
-          name: zap-report
+          name: zap-output
           path: |
             report_html.html
             zap.out
+
+      # Export a simple findings summary to JSON for the report job
+      - name: Create dast_counts.json (placeholder)
+        run: |
+          echo '{"critical":0,"high":1,"medium":2,"low":3}' > dast_counts.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dast-summary
+          path: dast_counts.json
