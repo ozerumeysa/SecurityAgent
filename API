@@ -1,0 +1,17 @@
+from fastapi import FastAPI
+import subprocess
+import json
+
+app = FastAPI()
+
+@app.get("/run-sast")
+def run_sast():
+    subprocess.run(["bash", "run_sast.sh"])
+    with open("sast_result.json") as f:
+        return json.load(f)
+
+@app.get("/run-dast")
+def run_dast():
+    subprocess.run(["bash", "run_dast.sh"])
+    with open("dast_result.json") as f:
+        return json.load(f)
